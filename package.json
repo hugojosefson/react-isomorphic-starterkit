@@ -20,6 +20,7 @@
   "main": "dist/server.js",
   "scripts": {
     "start": "forever --minUptime 1000 --spinSleepTime 1000 -c \"node --harmony\" ./dist/server.js",
+    "test": "npm run build",
     "build-server": "webpack --colors --display-error-details --config configs/webpack.server.js",
     "build-client": "webpack --colors --display-error-details --config configs/webpack.client.js",
     "build": "concurrent \"npm run build-server\" \"npm run build-client\"",

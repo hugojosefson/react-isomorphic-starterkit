@@ -20,6 +20,7 @@ with (currently) mostly stylistic changes:
   * `lf` line-endings, instead of `crlf`
   * 4 space indent, instead of tab
   * `'single quotes'` for js string literals, instead of `"double quotes"`
+  * Travis CI build: [![Build Status](https://travis-ci.org/hugojosefson/react-isomorphic-starterkit.svg?branch=feature%2Frefactor)](https://travis-ci.org/hugojosefson/react-isomorphic-starterkit)
 
 ## Features
 
