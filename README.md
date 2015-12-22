@@ -2,7 +2,7 @@
 
 Isomorphic starterkit with server-side React rendering using
 [npm](https://www.npmjs.com),
-[koa](http://koajs.com),
+[express](http://expressjs.com/),
 [webpack](https://webpack.github.io/),
 [babel](http://babeljs.io),
 [react](https://facebook.github.io/react),
@@ -15,12 +15,13 @@ Isomorphic starterkit with server-side React rendering using
 
 This is based on
 [RickWong/react-isomorphic-starterkit](https://github.com/RickWong/react-isomorphic-starterkit),
-with (currently) mostly stylistic changes:
+with the following changes:
 
+  * Express, instead of Koa
   * `lf` line-endings, instead of `crlf`
   * 4 space indent, instead of tab
   * `'single quotes'` for js string literals, instead of `"double quotes"`
-  * Travis CI build: [![Build Status](https://travis-ci.org/hugojosefson/react-isomorphic-starterkit.svg?branch=feature%2Frefactor)](https://travis-ci.org/hugojosefson/react-isomorphic-starterkit)
+  * Travis CI build: [![Build Status](https://travis-ci.org/hugojosefson/react-isomorphic-starterkit.svg?branch=feature%2Fexpress)](https://travis-ci.org/hugojosefson/react-isomorphic-starterkit)
 
 ## Features
 

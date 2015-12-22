@@ -1,7 +1,6 @@
 import babelPolyfill from 'babel-polyfill';
-import koa from 'koa';
-import koaProxy from 'koa-proxy';
-import koaStatic from 'koa-static';
+import express from 'express';
+import requestProxy from 'express-request-proxy';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import * as ReactRouter from 'react-router';
@@ -12,38 +11,33 @@ import githubApi from 'apis/github';
 import routesContainer from 'containers/routes';
 
 try {
-    const app = koa();
+    const app = express();
     const hostname = process.env.HOSTNAME || 'localhost';
     const port = process.env.PORT || 8000;
     let routes = routesContainer;
 
-    app.use(koaStatic('static'));
+    app.use(express.static('static'));
 
-    app.use(koaProxy({
-        host: githubApi.url,
-        match: /^\/api\/github\//i,
-        map: path => path.replace(/^\/api\/github\//i, '/')
-    }));
+    app.all('/api/github/*', requestProxy({url: 'https://api.github.com/*'}));
 
-    app.use(function *(next) {
-        yield (callback => {
-            const webserver = __PRODUCTION__ ? '' : `//${this.hostname}:8080`;
-            const location = history.createLocation(this.path);
+    app.use((req, res) => {
+        const webserver = __PRODUCTION__ ? '' : `//${req.hostname}:8080`;
+        const location = history.createLocation(req.path);
 
-            ReactRouter.match({routes, location}, (error, redirectLocation, renderProps) => {
-                if (redirectLocation) {
-                    this.redirect(redirectLocation.pathname + redirectLocation.search, '/');
-                    return;
-                }
+        ReactRouter.match({routes, location}, (error, redirectLocation, renderProps) => {
+            if (redirectLocation) {
+                res.redirect(redirectLocation.pathname + redirectLocation.search);
+                return;
+            }
 
-                if (error || !renderProps) {
-                    callback(error);
-                    return;
-                }
+            if (error || !renderProps) {
+                res.status(500).send(error);
+                return;
+            }
 
-                Transmit.renderToString(ReactRouter.RoutingContext, renderProps).then(({reactString, reactData}) => {
-                    const template = (
-                        `<!doctype html>
+            Transmit.renderToString(ReactRouter.RoutingContext, renderProps).then(({reactString, reactData}) => {
+                const template = (
+                    `<!doctype html>
 						<html lang="en-us">
 							<head>
 								<meta charset="utf-8">
@@ -54,13 +48,10 @@ try {
 								<div id="react-root">${reactString}</div>
 							</body>
 						</html>`
-                    );
+                );
 
-                    this.type = 'text/html';
-                    this.body = Transmit.injectIntoMarkup(template, reactData, [`${webserver}/dist/client.js`]);
-
-                    callback(null);
-                });
+                const html = Transmit.injectIntoMarkup(template, reactData, [`${webserver}/dist/client.js`]);
+                res.type('html').send(html);
             });
         });
     });
