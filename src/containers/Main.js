@@ -103,7 +103,7 @@ class Main extends React.Component {
                 </ul>
                 <p>
                     In short: <em>an excellent choice</em>.
-                    Ready to start{'?'}
+                    Ready to start?
                 </p>
                 <h3>
                     Open Community
