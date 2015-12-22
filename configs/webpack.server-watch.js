@@ -1,11 +1,11 @@
-var webpack = require("webpack");
-var config = require("./webpack.server.js");
+var webpack = require('webpack');
+var config = require('./webpack.server.js');
 
 config.cache = true;
 config.debug = true;
 
 config.entry.unshift(
-    "webpack/hot/poll?1000"
+    'webpack/hot/poll?1000'
 );
 
 config.plugins = [

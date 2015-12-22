@@ -1,12 +1,12 @@
-import React from "react";
-import InlineCss from "react-inline-css";
-import Transmit from "react-transmit";
+import React from 'react';
+import InlineCss from 'react-inline-css';
+import Transmit from 'react-transmit';
 
-import githubApi from "apis/github";
+import githubApi from 'apis/github';
 
 const fetchStargazers = (page, per_page = 100) => {
     return githubApi.browse(
-        ["repos", "RickWong/react-isomorphic-starterkit", "stargazers"],
+        ['repos', 'RickWong/react-isomorphic-starterkit', 'stargazers'],
         {query: {page, per_page}}
     ).then(json => {
         return (json || []).map(({id, login}) => ({id, login}));
@@ -24,11 +24,11 @@ class Main extends React.Component {
      */
     componentWillMount() {
         if (__SERVER__) {
-            console.log("Hello server");
+            console.log('Hello server');
         }
 
         if (__CLIENT__) {
-            console.log("Hello client");
+            console.log('Hello client');
         }
     }
 
@@ -60,14 +60,14 @@ class Main extends React.Component {
             nextPage,
             pagesToFetch,
             additionalStargazers
-        }, "additionalStargazers");
+        }, 'additionalStargazers');
     }
 
     /**
      * Runs on server and client.
      */
     render() {
-        const repositoryUrl = "https://github.com/RickWong/react-isomorphic-starterkit";
+        const repositoryUrl = 'https://github.com/RickWong/react-isomorphic-starterkit';
         const avatarSize = 32;
         const avatarUrl = (id) => `https://avatars.githubusercontent.com/u/${id}?v=3&s=${avatarSize}`;
 
@@ -109,14 +109,14 @@ class Main extends React.Component {
                     Open Community
                     <iframe
                         src="https://ghbtns.com/github-btn.html?user=RickWong&repo=react-isomorphic-starterkit&type=star&count=true"
-                        frameBorder="0" scrolling="0" width="110" height="20" style={{float:"right"}}></iframe>
+                        frameBorder="0" scrolling="0" width="110" height="20" style={{float:'right'}}></iframe>
                 </h3>
                 <p>
                     <a href={repositoryUrl} title="star = join us!">
                         <img className="avatar" src={avatarUrl(0)} alt="you?"/>
                     </a>
                     {stargazers && stargazers.map(user =>
-                        <a key={user.id} href={"https://github.com/"+user.login} title={user.login} target="_blank">
+                        <a key={user.id} href={'https://github.com/'+user.login} title={user.login} target="_blank">
                             <img className="avatar" src={avatarUrl(user.id)} alt={user.login}/>
                         </a>
                     )}
