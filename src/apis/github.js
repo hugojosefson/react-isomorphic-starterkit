@@ -9,9 +9,7 @@ const githubServerUrl = () => {
     }
 
     if (__CLIENT__) {
-        const {protocol, hostname, port} = window.location;
-
-        return `${protocol}//${hostname}:${port}/api/github`;
+        return `${window.location.origin}/api/github`;
     }
 };
 
