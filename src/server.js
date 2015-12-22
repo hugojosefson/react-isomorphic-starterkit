@@ -42,7 +42,7 @@ try {
                 }
 
                 Transmit.renderToString(ReactRouter.RoutingContext, renderProps).then(({reactString, reactData}) => {
-                    let template = (
+                    const template = (
                         `<!doctype html>
 						<html lang="en-us">
 							<head>
