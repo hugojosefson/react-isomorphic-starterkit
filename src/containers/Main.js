@@ -69,7 +69,7 @@ class Main extends React.Component {
     render() {
         const repositoryUrl = 'https://github.com/RickWong/react-isomorphic-starterkit';
         const avatarSize = 32;
-        const avatarUrl = (id) => `https://avatars.githubusercontent.com/u/${id}?v=3&s=${avatarSize}`;
+        const avatarUrl = id => `https://avatars.githubusercontent.com/u/${id}?v=3&s=${avatarSize}`;
 
         /**
          * This is a Transmit fragment.

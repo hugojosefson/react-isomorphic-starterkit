@@ -22,11 +22,11 @@ try {
     app.use(koaProxy({
         host: githubApi.url,
         match: /^\/api\/github\//i,
-        map: (path) => path.replace(/^\/api\/github\//i, '/')
+        map: path => path.replace(/^\/api\/github\//i, '/')
     }));
 
     app.use(function *(next) {
-        yield ((callback) => {
+        yield (callback => {
             const webserver = __PRODUCTION__ ? '' : `//${this.hostname}:8080`;
             const location = history.createLocation(this.path);
 
@@ -78,7 +78,7 @@ try {
                 routes = require('containers/routes');
             });
 
-            module.hot.addStatusHandler((status) => {
+            module.hot.addStatusHandler(status => {
                 if (status === 'abort') {
                     setTimeout(() => process.exit(0), 0);
                 }
